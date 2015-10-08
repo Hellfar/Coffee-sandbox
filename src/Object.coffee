@@ -4,7 +4,7 @@ Object::properties = (  ) ->
 	Object.getOwnPropertyNames this
 Object::clone = ( obj ) ->
 	obj = this if not arguments.length
-	return obj if obj is null or typeof (obj) isnt "object"
+	return obj if obj is null or typeof obj isnt "object"
 
 	ret = if obj.instanceOf(Array) then (obj.map (e) -> e)
 	else
@@ -17,4 +17,7 @@ Object::instanceOf = ( objectC ) ->
 	this instanceof objectC || this.constructor == objectC
 Object::implement = ( r_obj, fun ) ->
 	this.setAttr attr, r_obj[attr], fun for attr in r_obj when r_obj.hasOwnProperty(attr)
+	this
+Object::implementWeak = ( r_obj, fun ) ->
+	this.setAttr attr, r_obj[attr], fun for attr in r_obj when r_obj.hasOwnProperty(attr) and typeof this[attr] == "undefined"
 	this
