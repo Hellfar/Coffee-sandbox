@@ -16,5 +16,5 @@ Object::clone = ( obj ) ->
 Object::instanceOf = ( objectC ) ->
 	this instanceof objectC || this.constructor == objectC
 Object::implement = ( r_obj, fun ) ->
-	this.setAttr attr r_obj[attr] fun for attr in r_obj when r_obj.hasOwnProperty(attr)
+	this.setAttr attr, r_obj[attr], fun for attr in r_obj when r_obj.hasOwnProperty(attr)
 	this
