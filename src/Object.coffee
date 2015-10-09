@@ -21,3 +21,5 @@ Object::implement = ( r_obj, fun ) ->
 Object::implementWeak = ( r_obj, fun ) ->
 	this.setAttr attr, r_obj[attr], fun for attr in r_obj when r_obj.hasOwnProperty(attr) and typeof this[attr] == "undefined"
 	this
+Object::testIf = ( callback, defVal, args ) ->
+	if callback.apply null, [this].concat(args) then this else defVal
