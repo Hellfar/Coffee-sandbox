@@ -23,3 +23,9 @@ Object::implementWeak = ( r_obj, fun ) ->
 	this
 Object::testIf = ( callback, defVal, args ) ->
 	if callback.apply null, [this].concat(args) then this else defVal
+Object::getType = ( obj ) ->
+	obj = this if not arguments.length
+	if not obj? then "null"
+	else if not (obj instanceof Object) then (typeof obj).charAt(0).toUpperCase() + (typeof obj).slice(1)
+	else if obj.constructor? then obj.constructor.name
+	else "Object"
