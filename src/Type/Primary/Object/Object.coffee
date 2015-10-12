@@ -10,6 +10,21 @@ Object::getType = ( obj ) ->
 	else "Object"
 Object::testIf = ( callback, defVal, args ) ->
 	if callback.apply null, [this].concat(args) then this else defVal
+Object::isEqual = ( obj, cmpW ) ->
+	switch arguments.length
+		when 0 then return false
+		when 1 then cmpW = obj = this
+	if ((typeof (obj) == "number" && isNaN(obj)) && (typeof (obj) == "number" && isNaN(cmpW)))
+		return (true);
+	if ((not obj? || not cmpW?) || (typeof (obj) != "object" || typeof (cmpW) != "object"))
+		return (obj is cmpW);
+
+	if (obj.constructor != cmpW.constructor)
+		return (false);
+	for attr of obj
+		if (typeof (obj[attr]) != typeof (cmpW[attr]) || !(Object.isEqual(obj[attr], cmpW[attr])))
+			return (false);
+	true
 Object::setAttr = ( key, value, fun ) ->
 	this[key] = if fun? then fun value else value
 Object::clone = ( obj ) ->
